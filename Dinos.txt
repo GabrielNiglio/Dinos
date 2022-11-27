@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+typedef char string[30];
+
+typedef struct{
+	string inicial_dinosaurio;
+	string jurassic_park;
+	string tipo_dieta;
+	int antiguedad;
+} s_dinosaurio;
+
+void mostrar_dino(s_dinosaurio dino){
+	printf("Nombre: %s\n", dino.inicial_dinosaurio);
+	printf("Tipo de dieta: %s\n", dino.tipo_dieta);
+	printf("Antiguedad: %d\n", dino.antiguedad);
+	printf("Aparecio en jurassic park? %s\n", dino.jurassic_park);
+	printf("-------------------------------------------\n");
+}
+
+int main(int argc, char *argv[]) {
+	
+	int cant=0;
+	int max=100;//cantidad de dinosaurios
+	int i;
+	s_dinosaurio dino[max];
+	double mas_antiguo;
+	int que_dino;
+	string dino_buscado;
+	string si_jp="si";
+	int indice_buscado[max];
+	char continuar='s';
+	int opcion=1;
+	
+	
+	printf("Bienvenido al registro fosil de dinosaurios.\n");
+	
+	while(opcion != 0){
+		//Menú del programa
+		printf("Ingrese una opcion:\n");
+		printf("1-Ingresar dinosaurio.\n");
+		printf("2-Mostrar todos los dinosaurios.\n");
+		printf("3-Buscar por tipo de dieta.\n");
+		printf("4-Mostrar el dinosaurio mas antiguo.\n");
+		printf("5-Mostrar dinosaurios que aparecen en Jurassic Park.\n");
+		printf("0-Salir.\n");
+		
+		scanf("%d",&opcion);
+		printf("-------------------------------------------\n");
+		//Ingresar dinosaurios
+		if(opcion == 1){
+			
+			printf("Ingrese nombre del dinosaurio: ");
+			fflush(stdin);
+			gets(dino[cant].inicial_dinosaurio);
+			
+			printf("Ingrese tipo de dieta: ");
+			fflush(stdin);
+			gets(dino[cant].tipo_dieta);
+			
+			printf("Ingrese antiguedad del dinosaurio: ");
+			scanf("%d",&dino[cant].antiguedad);
+			
+			printf("Aparece en Jurassick Park?(si/no)");
+			fflush(stdin);
+			gets(dino[cant].jurassic_park);
+			
+			cant = cant+1;
+			printf("-------------------------------------------\n");
+			
+	 	}
+		
+		
+		//Mostrar todos los dinosaurios ingresados
+		if(opcion == 2){
+			for(i=0; i<cant; i=i+1){
+			mostrar_dino(dino[i]);
+			}
+			
+		}
+		
+		
+		
+		//Buscador por dieta
+		if(opcion==3){
+			continuar = 's';
+			while(continuar != 'n'){
+	    		printf("Ingrese tipo de dieta a buscar (carnivoro/herbivoro/omnivoro): ");
+	    		fflush(stdin);
+	    		gets(dino_buscado);
+	    		for(i=0; i<cant;i=i+1){
+	    			if(strcmp(dino_buscado,dino[i].tipo_dieta) == 0){
+	    			mostrar_dino(dino[i]);
+				}
+	    	}
+	    	
+	    		printf("Desea continuar buscando?(s/n)");
+	    		fflush(stdin);
+	    		scanf("%c",&continuar);
+	    		printf("-------------------------------------------\n");
+		
+		}
+		}
+		
+		//Mostrar el mas antigüo
+		if(opcion==4){
+			for(i=0; i<cant; i=i+1){
+				if(i==0){
+					mas_antiguo = dino[i].antiguedad;
+					que_dino = i;
+				}else{
+					if(dino[i].antiguedad > mas_antiguo){
+						mas_antiguo = dino[i].antiguedad;
+						que_dino = i;
+					}
+				}
+			}
+			mostrar_dino(dino[que_dino]);
+			
+		}
+		//Mostrar los que aparecieron en jp
+		if(opcion==5){
+			for(i=0; i<cant;i=i+1){
+	    		//if
+	    		//muestran
+	    			if(strcmp(si_jp,dino[i].jurassic_park) == 0){
+	    			mostrar_dino(dino[i]);
+				}
+	    	}
+			
+		}
+		
+	
+	
+	
+	}
+
+	
+	return 0;
+}
